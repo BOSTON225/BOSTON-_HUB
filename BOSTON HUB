@@ -74,7 +74,7 @@ game.StarterGui:SetCore("SendNotification", {
     Duration = 5;
 })
 
-local KEY_URL = "https://pastebin.com/raw/aNCaXE92"
+local KEY_URL = "https://raw.githubusercontent.com/BOSTON225/BOSTON-_HUB/refs/heads/main/key"
 local correctKey = tostring(game:HttpGet(KEY_URL)):gsub("%s+", "")
 
 local ScreenGui = Instance.new("ScreenGui")
