@@ -1,31 +1,191 @@
-     wait(0.1)
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "تم حذف السكربت";
-        Text = " شكرا لزيارة السكربت";
-        Duration = 5;
-    })
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
+task.delay(20, function()
+    local Players = game:GetService("Players")
+    local player = Players.LocalPlayer
+
+    local ScreenGui = Instance.new("ScreenGui")
+    ScreenGui.ResetOnSpawn = false
+    ScreenGui.Parent = game.CoreGui
+
+    local function createText(textContent, posY)
+        local bg = Instance.new("Frame")
+        bg.Size = UDim2.new(1, 0, 0, 20)
+        bg.Position = UDim2.new(0, 0, posY, 0)
+        bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        bg.BorderColor3 = Color3.fromRGB(0, 255, 0)
+        bg.BorderSizePixel = 3
+        bg.Parent = ScreenGui
+
+        local txt = Instance.new("TextLabel")
+        txt.Size = UDim2.new(1, -10, 1, -4)
+        txt.Position = UDim2.new(0, 5, 0, 2)
+        txt.BackgroundTransparency = 1
+        txt.Text = textContent
+        txt.TextColor3 = Color3.fromRGB(0, 255, 0)
+        txt.TextScaled = true
+        txt.Font = Enum.Font.GothamBold
+        txt.Parent = bg
+    end
+
+    createText("اللهم اغفرلي", 0)
+    createText("اللهم اشرحلي صدري", 0.9)
+
+    task.delay(6, function()
+        ScreenGui:Destroy()
+    end)
+end)
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "BOSTON_TEXT"
+gui.Parent = game.CoreGui
+
+local frame = Instance.new("Frame")
+frame.Size = UDim2.new(1, 0, 1, 0)
+frame.BackgroundTransparency = 1
+frame.Parent = gui
+
+local topText = Instance.new("TextLabel")
+topText.Size = UDim2.new(1, 0, 0, 80)
+topText.Position = UDim2.new(0, 0, 0.5, -90)
+topText.BackgroundTransparency = 1
+topText.Text = "شكرا علي تفعيل السكربت"
+topText.TextColor3 = Color3.fromRGB(255, 0, 0)
+topText.TextScaled = true
+topText.Font = Enum.Font.GothamBlack
+topText.Parent = frame
+
+local bottomText = Instance.new("TextLabel")
+bottomText.Size = UDim2.new(1, 0, 0, 60)
+bottomText.Position = UDim2.new(0, 0, 0.5, 10)
+bottomText.BackgroundTransparency = 1
+bottomText.Text = "SYSTEM OVERRIDE"
+bottomText.TextColor3 = Color3.fromRGB(255, 255, 255)
+bottomText.TextScaled = true
+bottomText.Font = Enum.Font.GothamBold
+bottomText.Parent = frame
+
+task.delay(5, function()
+	gui:Destroy()
+end)
+
+wait(0.1)
+game.StarterGui:SetCore("SendNotification", {
+    Title = "المفتاح في التيلجرام اكتي مفتاح";
+    Text = "https://t.me/BOSTON_HUB";
+    Duration = 5;
+})
+
+local KEY_URL = "https://raw.githubusercontent.com/BOSTON225/BOSTON-_HUB/refs/heads/main/key"
+local correctKey = tostring(game:HttpGet(KEY_URL)):gsub("%s+", "")
 
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.CoreGui
 
-local Frame = Instance.new("Frame")
-Frame.Size = UDim2.new(0, 400, 0, 150)
-Frame.Position = UDim2.new(0.5, -200, 0.5, -75)
-Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 300, 0, 150)
+Frame.Position = UDim2.new(0.5, -150, 0.5, -75)
+Frame.BackgroundColor3 = Color3.fromRGB(25,25,25)
 Frame.BorderSizePixel = 0
-Frame.Parent = ScreenGui
 
-local TextLabel = Instance.new("TextLabel")
-TextLabel.Size = UDim2.new(1, -20, 1, -20)
-TextLabel.Position = UDim2.new(0, 10, 0, 10)
-TextLabel.BackgroundTransparency = 1
-TextLabel.Text = " تم حذف السكربت 😂 لانوا تحت التطوير وهيرجع اقوي انشاء الله وصاحب السكربت قاعد يضيف حاجات جامدة  ملاحظة صاحب السكربت تعبان شويه بسبب فشل سكربت الطيران"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextScaled = true
-TextLabel.Font = Enum.Font.GothamBold
-TextLabel.Parent = Frame
+local TextBox = Instance.new("TextBox", Frame)
+TextBox.Size = UDim2.new(0, 260, 0, 35)
+TextBox.Position = UDim2.new(0, 20, 0, 30)
+TextBox.PlaceholderText = "ادخل المفتاح"
+TextBox.Text = ""
+TextBox.BackgroundColor3 = Color3.fromRGB(40,40,40)
+TextBox.TextColor3 = Color3.fromRGB(255,255,255)
+TextBox.ClearTextOnFocus = false
 
-wait(4)
-ScreenGui:Destroy()
+local Button = Instance.new("TextButton", Frame)
+Button.Size = UDim2.new(0, 260, 0, 35)
+Button.Position = UDim2.new(0, 20, 0, 80)
+Button.Text = "تفعيل"
+Button.BackgroundColor3 = Color3.fromRGB(60,60,60)
+Button.TextColor3 = Color3.fromRGB(255,255,255)
+
+Button.MouseButton1Click:Connect(function()
+    if TextBox.Text ~= correctKey then
+        TextBox.Text = ""
+        TextBox.PlaceholderText = "المفتاح غير صحيح"
+        return
+         game:GetService("Players").LocalPlayer:Kick("المفتاح غير صحيح")
+    end
+
+    ScreenGui:Destroy()
+
+    wait(0.1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "تم التفعيل";
+        Text = " شكرا للتفعيل السكربت ";
+        Duration = 5;
+    })
+
+    wait(0.1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "اسمي بروب saher2068";
+        Text = " لو قبلتك مشاكل التواصل علي تيلجرام او ديسكورد ";
+        Duration = 5;
+    })
+
+    wait(0.1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "BOSTON HUB";
+        Text = " الحقوق محفوظة BOSTON HUB";
+        Duration = 5;
+    })
+
+    wait(0.1)
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "انت تستخدم BOSTON HUB";
+        Text = " الهاك اللي تستخدمه : Delta";
+        Duration = 5;
+    })
+
+    local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+    local Window = Library.CreateLib("   BOSTON اسكربت المطور ", "DarkTheme")
+
+    local Tab1 = Window:NewTab("سكربتات")
+    local Sec1 = Tab1:NewSection("ملاحظة السكربت تحت التطوير")
+
+    Sec1:NewButton("ادمن", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end)
+
+    Sec1:NewButton("VR7", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-VR7-45290"))()
+    end)
+
+    Sec1:NewButton("شفت", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://scriptblox.com/raw/Baseplate-Universal-Script-Permanent-Shift-Lock-6924"))()
+    end)
+    
+    Sec1:NewButton("رقصات", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Baseplate-Fe-All-Emote-7386"))()
+    end)
+
+    local Tab2 = Window:NewTab("اللاعب")
+    local Sec2 = Tab2:NewSection("تحكم اللاعب")
+
+    Sec2:NewButton("سرعة", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Universal-Speed-Script-86327"))()
+    end)
+
+    Sec2:NewButton("نط", "ButtonInfo", function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Infinite-Jump-Script-81968"))()
+    end)
+end)
+
+local SoundFolder = Instance.new("Folder")
+SoundFolder.Name = "BOSTON_SOUNDS"
+SoundFolder.Parent = workspace
+
+local function playSound(id, vol)
+    local s = Instance.new("Sound")
+    s.SoundId = id
+    s.Volume = vol or 7
+    s.Parent = SoundFolder
+    s:Play()
+    game.Debris:AddItem(s, 6)
+end
+
+playSound("rbxassetid://1843529633", 8)
+playSound("rbxassetid://9118823100", 7)
