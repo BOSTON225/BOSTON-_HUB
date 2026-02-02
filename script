@@ -1,3 +1,10 @@
+wait(0,1)
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "تم التفعيل";
+	Text = "fly BOSTON";
+	Icon = "rbxthumb://type=Asset&id="5107182114&w=150&h=150"})
+Duration = 5;
+
 task.delay(20, function()
     local Players = game:GetService("Players")
     local player = Players.LocalPlayer
@@ -74,7 +81,7 @@ game.StarterGui:SetCore("SendNotification", {
     Duration = 5;
 })
 
-local KEY_URL = "https://pastebin.com/raw/S1LRFtz8"
+local KEY_URL = "https://pastebin.com/raw/aNCaXE92"
 local correctKey = tostring(game:HttpGet(KEY_URL)):gsub("%s+", "")
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -147,38 +154,32 @@ Button.MouseButton1Click:Connect(function()
     local Sec1 = Tab1:NewSection("ملاحظة السكربت تحت التطوير")
 
     Sec1:NewButton("ادمن", "ButtonInfo", function()
-       
-    print("Clicked") loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
-    end
-    
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+    end)
+
     Sec1:NewButton("VR7", "ButtonInfo", function()
-   
-    print("Clicked") loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-VR7-45290"))()
-    end
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-VR7-45290"))()
+    end)
 
     Sec1:NewButton("شفت", "ButtonInfo", function()
-        
-    print("Clicked") loadstring(game:HttpGet("https://scriptblox.com/raw/Baseplate-Universal-Script-Permanent-Shift-Lock-6924"))()
-    end
+        loadstring(game:HttpGet("https://scriptblox.com/raw/Baseplate-Universal-Script-Permanent-Shift-Lock-6924"))()
+    end)
     
     Sec1:NewButton("رقصات", "ButtonInfo", function()
-        
-    print("Clicked")  loadstring(game:HttpGet("https://rawscripts.net/raw/Baseplate-Fe-All-Emote-7386"))()
-    end
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Baseplate-Fe-All-Emote-7386"))()
+    end)
 
     local Tab2 = Window:NewTab("اللاعب")
     local Sec2 = Tab2:NewSection("تحكم اللاعب")
 
     Sec2:NewButton("سرعة", "ButtonInfo", function()
-        
-    print("Clicked")  loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Universal-Speed-Script-86327"))()
-    end
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Universal-Speed-Script-86327"))()
+    end)
 
     Sec2:NewButton("نط", "ButtonInfo", function()
-        
-    print("Clicked")  loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Infinite-Jump-Script-81968"))()
-    end
-end
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Infinite-Jump-Script-81968"))()
+    end)
+end)
 
 local SoundFolder = Instance.new("Folder")
 SoundFolder.Name = "BOSTON_SOUNDS"
@@ -195,4 +196,3 @@ end
 
 playSound("rbxassetid://1843529633", 8)
 playSound("rbxassetid://9118823100", 7)
-  
