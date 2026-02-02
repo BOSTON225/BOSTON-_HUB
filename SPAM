@@ -1,3 +1,8 @@
+game:GetService("StarterGui"):SetCore("SendNotification", { 
+	Title = "BOSTON SPAM";
+	Text = "تم التفعيل";
+	Icon = "rbxthumb://type=Asset&id=5107182114&w=150&h=150"})
+Duration = 5;
 -- SERVICES
 local Players = game:GetService("Players")
 local ChatService = game:GetService("TextChatService")
@@ -8,7 +13,7 @@ local lp = Players.LocalPlayer
 
 -- GUI ROOT
 local rootGui = Instance.new("ScreenGui")
-rootGui.Name = "DV2_GUI"
+rootGui.Name = "BOSTON_HUB"
 rootGui.Parent = lp:WaitForChild("PlayerGui")
 
 -- MAIN PANEL
@@ -120,13 +125,10 @@ end)
 
 -- MESSAGE SYSTEM (LOGIC SAME)
 local basePattern =
-"-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_--_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--__-_-_-_-_-__--_-___---_-_-_(TextBox)  "
+"[(TextBox)]"
 
 local messageList = {
-	"CUD","Tmr","Tmkx","Pgl","CXUD","6kka","Marja","TML","MC",
-	"Bkl","Tmkb","Lole","Lwde","Hijda","Chalka",
-	"Gnd","Lan","Beti","Xud","Gmdu","Ma Xuda","Ro","Khtm","Nanga",
-	"DAKSH VASU Script"
+	"Script"
 }
 
 local running = false
@@ -135,8 +137,7 @@ local RETRY_DELAY = 3
 
 actionBtn.MouseButton1Click:Connect(function()
 	running = not running
-	actionBtn.Text = running and "توقف /stop" or "بدا /start"
-
+	actionBtn.Text = running and "STOP" or "START"
 	task.spawn(function()
 		while running do
 			for _, word in ipairs(messageList) do
