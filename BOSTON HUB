@@ -104,10 +104,10 @@ Button.TextColor3 = Color3.fromRGB(255,255,255)
 
 Button.MouseButton1Click:Connect(function()
     if TextBox.Text ~= correctKey then
+     game:GetService("Players").LocalPlayer:Kick("ياروح امك روح هات المفتاح من اللينك لانوا بيتغير كل شويه")
         TextBox.Text = ""
         TextBox.PlaceholderText = "المفتاح غير صحيح"
         return
-         game:GetService("Players").LocalPlayer:Kick("المفتاح غير صحيح")
     end
 
     ScreenGui:Destroy()
