@@ -1,0 +1,156 @@
+-- SERVICES
+local Players = game:GetService("Players")
+local ChatService = game:GetService("TextChatService")
+local UIS = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
+local lp = Players.LocalPlayer
+
+-- GUI ROOT
+local rootGui = Instance.new("ScreenGui")
+rootGui.Name = "DV2_GUI"
+rootGui.Parent = lp:WaitForChild("PlayerGui")
+
+-- MAIN PANEL
+local panel = Instance.new("Frame")
+panel.Name = "MainPanel"
+panel.Size = UDim2.new(0, 330, 0, 165)
+panel.AnchorPoint = Vector2.new(0.5, 0.5)
+panel.Position = UDim2.new(0.5, 0, 0.5, 0)
+panel.BackgroundColor3 = Color3.fromRGB(18, 18, 22)
+panel.BorderSizePixel = 0
+panel.Parent = rootGui
+panel.Active = true
+
+-- CORNER
+local panelCorner = Instance.new("UICorner", panel)
+panelCorner.CornerRadius = UDim.new(0, 10)
+
+-- TITLE
+local header = Instance.new("TextLabel")
+header.Size = UDim2.new(1, -20, 0, 36)
+header.Position = UDim2.new(0, 10, 0, 6)
+header.BackgroundTransparency = 1
+header.Text = "BOSTON SPAM"
+header.Font = Enum.Font.GothamBlack
+header.TextScaled = true
+header.TextColor3 = Color3.fromRGB(200, 80, 255)
+header.Parent = panel
+
+-- INPUT BOX
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(1, -30, 0, 34)
+inputBox.Position = UDim2.new(0, 15, 0, 50)
+inputBox.PlaceholderText = "Enter text"
+inputBox.ClearTextOnFocus = false
+inputBox.TextScaled = true
+inputBox.Font = Enum.Font.Gotham
+inputBox.BackgroundColor3 = Color3.fromRGB(35, 35, 40)
+inputBox.TextColor3 = Color3.fromRGB(235, 235, 235)
+inputBox.Parent = panel
+
+Instance.new("UICorner", inputBox).CornerRadius = UDim.new(0, 6)
+
+-- ACTION BUTTON
+local actionBtn = Instance.new("TextButton")
+actionBtn.Size = UDim2.new(1, -30, 0, 36)
+actionBtn.Position = UDim2.new(0, 15, 0, 100)
+actionBtn.Text = "START"
+actionBtn.TextScaled = true
+actionBtn.Font = Enum.Font.GothamBold
+actionBtn.BackgroundColor3 = Color3.fromRGB(90, 60, 150)
+actionBtn.TextColor3 = Color3.new(1,1,1)
+actionBtn.Parent = panel
+
+Instance.new("UICorner", actionBtn).CornerRadius = UDim.new(0, 6)
+
+-- BUTTON HOVER EFFECT
+actionBtn.MouseEnter:Connect(function()
+	TweenService:Create(
+		actionBtn,
+		TweenInfo.new(0.15),
+		{BackgroundColor3 = Color3.fromRGB(120, 80, 200)}
+	):Play()
+end)
+
+actionBtn.MouseLeave:Connect(function()
+	TweenService:Create(
+		actionBtn,
+		TweenInfo.new(0.15),
+		{BackgroundColor3 = Color3.fromRGB(90, 60, 150)}
+	):Play()
+end)
+
+-- DRAG SYSTEM (PC + MOBILE)
+local dragging, dragInput, dragStart, startPos
+
+panel.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1
+	or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = panel.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+panel.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement
+	or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UIS.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		local delta = input.Position - dragStart
+		panel.Position = UDim2.new(
+			startPos.X.Scale,
+			startPos.X.Offset + delta.X,
+			startPos.Y.Scale,
+			startPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+-- MESSAGE SYSTEM (LOGIC SAME)
+local basePattern =
+"-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_--_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--__-_-_-_-_-__--_-___---_-_-_(TextBox)  "
+
+local messageList = {
+	"CUD","Tmr","Tmkx","Pgl","CXUD","6kka","Marja","TML","MC",
+	"Bkl","Tmkb","Lole","Lwde","Hijda","Chalka",
+	"Gnd","Lan","Beti","Xud","Gmdu","Ma Xuda","Ro","Khtm","Nanga",
+	"DAKSH VASU Script"
+}
+
+local running = false
+local SEND_DELAY = 1
+local RETRY_DELAY = 3
+
+actionBtn.MouseButton1Click:Connect(function()
+	running = not running
+	actionBtn.Text = running and "توقف /stop" or "بدا /start"
+
+	task.spawn(function()
+		while running do
+			for _, word in ipairs(messageList) do
+				if not running then break end
+
+				local finalMsg =
+					basePattern:gsub("%(TextBox%)", inputBox.Text) .. word
+
+				local ok = pcall(function()
+					ChatService.TextChannels.RBXGeneral:SendAsync(finalMsg)
+				end)
+
+				task.wait(ok and SEND_DELAY or RETRY_DELAY)
+			end
+		end
+	end)
+end)
